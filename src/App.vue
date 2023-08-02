@@ -9,7 +9,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <app-container :postData="postData"></app-container>
+  <app-container :postData="postData" :step="step"></app-container>
 
   <button @click="getPost">MORE</button>
 
@@ -19,13 +19,6 @@
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
-
-  <div v-if="showContent[0]">내용0</div>
-  <div v-if="showContent[1]">내용1</div>
-  <div v-if="showContent[2]">내용2</div>
-  <button @click="onClickShowContent(0)">버튼0</button>
-  <button @click="onClickShowContent(1)">버튼1</button>
-  <button @click="onClickShowContent(2)">버튼2</button>
 </template>
 
 <script>
@@ -37,24 +30,12 @@ export default {
   name: "App",
   data() {
     return {
-      showContent: [false, false, false],
+      step: 2, // 현재 페이지 상태
       postData: postData,
       serverNum: 0,
     };
   },
   methods: {
-    onClickShowContent(btnNum) {
-      this.showContent.map((item, idx) => {
-        // 버튼 번호와 똑같은 컨텐츠만 보여야 함.
-        // 눌린 버튼의 인덱스의 값은 true, 그렇지 않는 버튼 인덱스 값은 false로
-        if (btnNum === idx) {
-          this.showContent[idx] = true;
-        } else {
-          this.showContent[idx] = false;
-        }
-      });
-      console.log(`showContent ARRAY : ${this.showContent}`);
-    },
     getPost() {
       axios
         .get(`https://codingapple1.github.io/vue/more${this.serverNum}.json`)
