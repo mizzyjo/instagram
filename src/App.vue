@@ -4,18 +4,30 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publishPost()">Publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <app-container :postData="postData" :step="step"></app-container>
+  <app-container
+    :postData="postData"
+    :step="step"
+    :selectedImgUrl="selectedImgUrl"
+    @inputValue="changePostContent"
+  ></app-container>
 
   <button @click="getPost">MORE</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input
+        accept="image/*"
+        @change="upload"
+        type="file"
+        id="file"
+        class="inputfile"
+      />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
@@ -30,12 +42,42 @@ export default {
   name: "App",
   data() {
     return {
-      step: 2, // 현재 페이지 상태
+      step: 0, // 현재 페이지 상태
+      contentValue: "",
+      selectedImgUrl: null,
       postData: postData,
       serverNum: 0,
     };
   },
   methods: {
+    changePostContent(e) {
+      this.contentValue = e;
+    },
+    publishPost() {
+      let newPost = {
+        name: "Anna",
+        userImage: "https://picsum.photos/100?random=7",
+        postImage: this.selectedImgUrl,
+        likes: 3600,
+        date: "May 15",
+        liked: false,
+        content: this.contentValue,
+        filter: "perpetua",
+      };
+      console.log(newPost.content);
+      postData.unshift(newPost);
+      console.log(`======> ${this.postData}`);
+      this.step = 0;
+    },
+    upload(e) {
+      let imgFile = e.target.files;
+      console.log(imgFile);
+      let url = URL.createObjectURL(imgFile[0]);
+      console.log(url);
+      this.selectedImgUrl = url;
+      // console.log(`selectedImgUrl : ${this.selectedImgUrl}`);
+      this.step++;
+    },
     getPost() {
       axios
         .get(`https://codingapple1.github.io/vue/more${this.serverNum}.json`)

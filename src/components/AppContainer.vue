@@ -11,7 +11,10 @@
 
   <!-- 필터선택페이지 step: 1 -->
   <section v-if="step === 1">
-    <div class="upload-image"></div>
+    <div
+      class="upload-image"
+      :style="{ backgroundImage: `url(${selectedImgUrl})` }"
+    ></div>
     <div class="filters">
       <div class="filter-1"></div>
       <div class="filter-1"></div>
@@ -23,9 +26,12 @@
 
   <!-- 글작성페이지 step:2 -->
   <section v-if="step === 2">
-    <div class="upload-image"></div>
+    <div
+      class="upload-image"
+      :style="{ backgroundImage: `url(${selectedImgUrl})` }"
+    ></div>
     <div class="write">
-      <textarea class="write-box">write!</textarea>
+      <textarea @input="handleInputChange" class="write-box">write!</textarea>
     </div>
   </section>
 </template>
@@ -33,12 +39,26 @@
 <script>
 import PostItem from "./PostItem.vue";
 export default {
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
+  methods: {
+    handleInputChange(e) {
+      let inputValue = e.target.value;
+      this.inputValue = inputValue;
+      this.$emit("inputValue", this.inputValue);
+      // console.log(inputValue);
+    },
+  },
   components: {
     PostItem,
   },
   props: {
     step: Number,
     postData: Array,
+    selectedImgUrl: String,
   },
 };
 </script>
