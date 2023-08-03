@@ -34,9 +34,9 @@
 </template>
 
 <script>
+import axios from "axios";
 import postData from "./assets/data.js";
 import AppContainer from "./components/AppContainer.vue";
-import axios from "axios";
 
 export default {
   name: "App",
@@ -64,9 +64,7 @@ export default {
         content: this.contentValue,
         filter: "perpetua",
       };
-      console.log(newPost.content);
       postData.unshift(newPost);
-      console.log(`======> ${this.postData}`);
       this.step = 0;
     },
     upload(e) {
@@ -75,7 +73,6 @@ export default {
       let url = URL.createObjectURL(imgFile[0]);
       console.log(url);
       this.selectedImgUrl = url;
-      // console.log(`selectedImgUrl : ${this.selectedImgUrl}`);
       this.step++;
     },
     getPost() {

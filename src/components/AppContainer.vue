@@ -1,5 +1,6 @@
 <template>
   <h1>{{ step }}</h1>
+
   <!-- 메인페이지 step: 0 -->
   <section v-if="step === 0">
     <post-item
@@ -16,11 +17,17 @@
       :style="{ backgroundImage: `url(${selectedImgUrl})` }"
     ></div>
     <div class="filters">
+      <!-- <div class="filter-1"></div>
       <div class="filter-1"></div>
       <div class="filter-1"></div>
       <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
+      <div class="filter-1"></div> -->
+      <filter-box
+        v-for="filter in imgFilters"
+        :key="filter"
+        :selectedImgUrl="selectedImgUrl"
+        :filter="filter"
+      ></filter-box>
     </div>
   </section>
 
@@ -38,10 +45,14 @@
 
 <script>
 import PostItem from "./PostItem.vue";
+import FilterBox from "./FilterBox.vue";
+import imgFilters from "../assets/imgFilters.js";
+
 export default {
   data() {
     return {
       inputValue: "",
+      imgFilters: imgFilters,
     };
   },
   methods: {
@@ -54,6 +65,7 @@ export default {
   },
   components: {
     PostItem,
+    FilterBox,
   },
   props: {
     step: Number,
