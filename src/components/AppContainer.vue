@@ -17,17 +17,13 @@
       :style="{ backgroundImage: `url(${selectedImgUrl})` }"
     ></div>
     <div class="filters">
-      <!-- <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div> -->
       <filter-box
         v-for="filter in imgFilters"
         :key="filter"
         :selectedImgUrl="selectedImgUrl"
         :filter="filter"
-      ></filter-box>
+        >{{ filter }}</filter-box
+      >
     </div>
   </section>
 

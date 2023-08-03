@@ -1,9 +1,10 @@
 <template>
-  {{ console.log(`sssssssss${selectedImgUrl}`) }}
   <div
     :style="{ backgroundImage: `url(${selectedImgUrl})` }"
-    :class="['filter-item', filter]"
-  ></div>
+    :class="`filter-item ${filter}`"
+  >
+    <slot></slot>
+  </div>
 </template>
 
 <script>
