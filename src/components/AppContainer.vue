@@ -49,6 +49,7 @@ export default {
     return {
       inputValue: "",
       imgFilters: imgFilters,
+      selectedFilter: "",
     };
   },
   methods: {
@@ -58,6 +59,14 @@ export default {
       this.$emit("inputValue", this.inputValue);
       // console.log(inputValue);
     },
+  },
+  mounted() {
+    this.emitter.on("emittedFilter", (selectedFilter) => {
+      // 데이터수신시 실행할 코드
+      // a는 출력해보면 데이터 출력됨
+      console.log(`selectedFilter: ${selectedFilter}`);
+      this.selectedFilter = selectedFilter;
+    });
   },
   components: {
     PostItem,

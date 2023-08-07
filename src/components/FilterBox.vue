@@ -2,6 +2,7 @@
   <div
     :style="{ backgroundImage: `url(${selectedImgUrl})` }"
     :class="`filter-item ${filter}`"
+    @click="handleFilterClick"
   >
     <slot></slot>
   </div>
@@ -11,6 +12,12 @@
 export default {
   data() {
     return {};
+  },
+  methods: {
+    handleFilterClick() {
+        this.emitter.emit('emittedFilter', this.filter);
+        console.log(this.filter);
+    },
   },
   props: {
     filter: String,
