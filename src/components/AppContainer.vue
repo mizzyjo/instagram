@@ -5,6 +5,7 @@
   <section v-if="step === 0">
     <post-item
       :postData="post"
+      :selectedFilter="selectedFilter"
       v-for="(post, idx) in postData"
       :key="idx"
     ></post-item>
@@ -13,24 +14,23 @@
   <!-- 필터선택페이지 step: 1 -->
   <section v-if="step === 1">
     <div
-      class="upload-image"
+      class="upload-image" :class="selectedFilter"
       :style="{ backgroundImage: `url(${selectedImgUrl})` }"
-    ></div>
+    >{{ this.selectedFilter }}</div>
     <div class="filters">
       <filter-box
         v-for="filter in imgFilters"
         :key="filter"
         :selectedImgUrl="selectedImgUrl"
         :filter="filter"
-        >{{ filter }}</filter-box
-      >
+        >{{ filter }}</filter-box>
     </div>
   </section>
 
   <!-- 글작성페이지 step:2 -->
   <section v-if="step === 2">
     <div
-      class="upload-image"
+      class="upload-image" :class="selectedFilter"
       :style="{ backgroundImage: `url(${selectedImgUrl})` }"
     ></div>
     <div class="write">
@@ -63,7 +63,7 @@ export default {
   mounted() {
     this.emitter.on("emittedFilter", (selectedFilter) => {
       // 데이터수신시 실행할 코드
-      // a는 출력해보면 데이터 출력됨
+      // selectedFilter를 출력해보면 데이터 출력됨
       console.log(`selectedFilter: ${selectedFilter}`);
       this.selectedFilter = selectedFilter;
     });

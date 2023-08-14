@@ -10,6 +10,7 @@
     <div
       class="post-body"
       :style="{ backgroundImage: `url(${postData.postImage})` }"
+      :class="selectedFilter"
     ></div>
     <div class="post-content">
       <p>{{ postData.likes }} Likes</p>
@@ -25,6 +26,7 @@
 export default {
   props: {
     postData: Object,
+    selectedFilter: String
   },
 };
 </script>
