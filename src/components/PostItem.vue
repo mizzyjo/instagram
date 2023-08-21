@@ -10,7 +10,7 @@
     <div
       class="post-body"
       :style="{ backgroundImage: `url(${postData.postImage})` }"
-      :class="selectedFilter"
+      :class="postData.filter"
     ></div>
     <div class="post-content">
       <p>{{ postData.likes }} Likes</p>
@@ -26,7 +26,7 @@
 export default {
   props: {
     postData: Object,
-    selectedFilter: String
+    selectedFilter: String // undefiend 이므로 삭제
   },
 };
 </script>

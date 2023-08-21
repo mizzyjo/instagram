@@ -47,7 +47,16 @@ export default {
       selectedImgUrl: null,
       postData: postData,
       serverNum: 0,
+      selectedFilter: "",
     };
+  },
+  mounted() {
+    this.emitter.on("emittedFilter", (selectedFilter) => {
+      // 데이터수신시 실행할 코드
+      // selectedFilter를 출력해보면 데이터 출력됨
+      console.log(`selectedFilter22: ${selectedFilter}`);
+      this.selectedFilter = selectedFilter;
+    });
   },
   methods: {
     changePostContent(e) {
@@ -62,7 +71,7 @@ export default {
         date: "May 15",
         liked: false,
         content: this.contentValue,
-        filter: "perpetua",
+        filter: this.selectedFilter,
       };
       postData.unshift(newPost);
       this.step = 0;
