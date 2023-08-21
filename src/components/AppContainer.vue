@@ -1,5 +1,9 @@
 <template>
   <h1>{{ step }}</h1>
+  <h2>Hello {{ $store.state.name }}!</h2>
+  <button @click="$store.commit('changeName')">버튼</button>
+  <h2>You are {{ $store.state.age }}.</h2>
+  <button @click="$store.commit('addAge', 10)">버튼</button>
 
   <!-- 메인페이지 step: 0 -->
   <section v-if="step === 0">
@@ -8,6 +12,8 @@
       :selectedFilter="selectedFilter"
       v-for="(post, idx) in postData"
       :key="idx"
+      :likesIdx="idx"
+      :likes="$store.state.likes[idx]"
     ></post-item>
   </section>
 

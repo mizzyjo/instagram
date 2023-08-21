@@ -11,9 +11,10 @@
       class="post-body"
       :style="{ backgroundImage: `url(${postData.postImage})` }"
       :class="postData.filter"
+      @click="$store.commit('changeLikeCount', likesIdx)"
     ></div>
     <div class="post-content">
-      <p>{{ postData.likes }} Likes</p>
+      <p>{{ likes }} Likes</p>
       <p>
         <strong>{{ postData.name }}</strong> {{ postData.content }}
       </p>
@@ -26,7 +27,9 @@
 export default {
   props: {
     postData: Object,
-    selectedFilter: String // undefiend 이므로 삭제
+    selectedFilter: String, // undefiend 또는 '' 이므로 삭제
+    likes: Number,
+    likesIdx: Number,
   },
 };
 </script>
